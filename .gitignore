@@ -1,0 +1,46 @@
+# Terraform
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfplan
+*.tfvars
+*.tfvars.json
+*.tfvars.yaml
+*.tfvars.yml
+.terraform/
+.terraform.lock.hcl
+*.override.tf
+*.override.tf.json
+
+# Local .terraform directories
+**/.terraform/*
+
+# Sensitive variable files
+*.auto.tfvars
+*.auto.tfvars.json
+*.auto.tfvars.yaml
+*.auto.tfvars.yml
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Python virtual environments
+venv/
+__pycache__/
+
+# Logs
+*.log
+
+# Misc
+*.bak
+*.tmp
