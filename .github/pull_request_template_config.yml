@@ -1,0 +1,12 @@
+name: "Pull Request Templates"
+description: "Choose a template for your PR"
+templates:
+  - name: "Feature"
+    file: PULL_REQUEST_TEMPLATE/feature.md
+    description: "Use for new features"
+  - name: "Bug Fix"
+    file: PULL_REQUEST_TEMPLATE/bug_fix.md
+    description: "Use for fixing a bug"
+  - name: "Documentation Update"
+    file: PULL_REQUEST_TEMPLATE/docs_update.md
+    description: "Use for updating docs"
