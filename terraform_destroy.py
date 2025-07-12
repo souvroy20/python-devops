@@ -7,7 +7,7 @@ directory = "terraform-project"
 def destroy_terraform_command(command):
 
     result = subprocess.run(command, shell=True, check=True,
-                            capture_output=True, , text=True)
+                            capture_output=True, text=True)
     if result.returncode != 0:
         return f"Error: {result.stderr}"
     return result.stdout
