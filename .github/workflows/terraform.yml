@@ -25,7 +25,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+      - name: Show Full Commit Message & Details
+        run: |
+          echo "${{ github.event.head_commit.message }}"
+          echo "Committer: ${{ github.event.head_commit.committer.name }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Repository: ${{ github.repository }}"
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
