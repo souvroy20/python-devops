@@ -1,6 +1,13 @@
+resource "tls_private_key" "deployer_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 resource "aws_key_pair" "deployer" {
   key_name   = "terra-automate-key"
-public_key = file("C:\\IMPORTANT\\AWS_Keys\\terraform_python.pub")
+  public_key = tls_private_key.deployer_key.public_key_openssh
+  # Use the below when executing locally
+  # public_key = file("C:\\IMPORTANT\\AWS_Keys\\terraform_python.pub")
 }
 
 resource "aws_default_vpc" "default" {

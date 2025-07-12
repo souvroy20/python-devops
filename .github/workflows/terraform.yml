@@ -52,7 +52,6 @@ jobs:
           # allowing you to review them without blocking deployment.
           checkov --directory terraform-project --soft-fail --output cli > checkov_results.txt
       - name: Commit Checkov Results
-        if: matrix.python-version == '3.13' # Only run on one of the matrix jobs to avoid race conditions
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "docs: Update Checkov scan results"

@@ -16,3 +16,9 @@ output "instance_private_ip" {
 output "public_key" {
   value = aws_key_pair.deployer.public_key
 }
+
+output "private_key_pem" {
+  description = "Private key to connect to the EC2 instance. Store this securely."
+  value       = tls_private_key.deployer_key.private_key_pem
+  sensitive   = true
+}
