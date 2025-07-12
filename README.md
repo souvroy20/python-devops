@@ -101,3 +101,5 @@ To use this project in your own account, you will need:
     - `AWS_SECRET_ACCESS_KEY`: Your AWS secret key.
 
 ---
+
+## 📌 Usage
