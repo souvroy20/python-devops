@@ -33,9 +33,7 @@ if __name__ == "__main__":
             break
     print("\n🔚 All steps completed.")
 
-
 # import subprocess
-
 
 # # directory = r"C:\IMPORTANT\PTHN_DEVOPS\terraform-project"
 # directory = "terraform-project"
