@@ -1,0 +1,30 @@
+4 issue(s) found:
+
+Warning: terraform "required_version" attribute is required (terraform_required_version)
+
+  on terraform-project/backend.tf line 1:
+   1: terraform {
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.12.0/docs/rules/terraform_required_version.md
+
+Warning: `aws_region` variable has no type (terraform_typed_variables)
+
+  on terraform-project/variables.tf line 1:
+   1: variable "aws_region" {
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.12.0/docs/rules/terraform_typed_variables.md
+
+Warning: `ami_id` variable has no type (terraform_typed_variables)
+
+  on terraform-project/variables.tf line 6:
+   6: variable "ami_id" {
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.12.0/docs/rules/terraform_typed_variables.md
+
+Warning: `instance_type` variable has no type (terraform_typed_variables)
+
+  on terraform-project/variables.tf line 11:
+  11: variable "instance_type" {
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.12.0/docs/rules/terraform_typed_variables.md
+
