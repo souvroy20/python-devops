@@ -30,7 +30,8 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "≥ 3.12"
+          python-version: "3.13"
+          # This installs the latest 3.13.x (≥ 3.13.0)
         # with:
         #   python-version: ${{ matrix.python-version }}
       - name: Print Python Version
