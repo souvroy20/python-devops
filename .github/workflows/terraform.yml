@@ -58,5 +58,8 @@ jobs:
         with:
           commit_message: "docs: Update Checkov scan results"
           file_pattern: checkov_results.txt
+      - name: Install TFLint
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
       - name: Run Terraform Automation Script
         run: python terraform_automate.py
