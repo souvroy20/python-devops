@@ -203,7 +203,7 @@ Check: CKV_AWS_126: "Ensure that detailed monitoring is enabled for EC2 instance
 		63 |   iam_instance_profile = data.aws_iam_instance_profile.existing.name
 		64 |   key_name             = aws_key_pair.deployer.key_name
 		65 |   ebs_optimized        = true
-		66 |   security_groups      = [aws_security_group.allow_user_to_connect.name]
+		66 |   vpc_security_group_ids = [aws_security_group.allow_user_to_connect.id]
 		67 |   user_data            = <<-EOF
 		68 |     #!/bin/bash
 		69 |     exec > /var/log/user-data.log 2>&1
@@ -234,7 +234,7 @@ Check: CKV_AWS_79: "Ensure Instance Metadata Service Version 1 is not enabled"
 		63 |   iam_instance_profile = data.aws_iam_instance_profile.existing.name
 		64 |   key_name             = aws_key_pair.deployer.key_name
 		65 |   ebs_optimized        = true
-		66 |   security_groups      = [aws_security_group.allow_user_to_connect.name]
+		66 |   vpc_security_group_ids = [aws_security_group.allow_user_to_connect.id]
 		67 |   user_data            = <<-EOF
 		68 |     #!/bin/bash
 		69 |     exec > /var/log/user-data.log 2>&1
