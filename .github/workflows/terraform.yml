@@ -1,0 +1,39 @@
+name: "Terraform CI/CD"
+
+on:
+  push:
+    branches:
+      - main # Or your default branch
+    paths:
+      - "terraform-project/**" # Only run when terraform files change
+      - "terraform_automate.py"
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  terraform:
+    name: "Terraform Apply"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 # Change to your desired AWS region
+
+      - name: Run Terraform Automation Script
+        run: python terraform_automate.py
