@@ -11,7 +11,7 @@ on:
 
 jobs:
   terraform:
-    name: "Terraform Scan & Execution"
+    name: "Terraform Code Scan,dry run and Execution"
     runs-on: ubuntu-latest
     permissions:
       contents: write # Grant permission to write to the repository
