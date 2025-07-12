@@ -53,13 +53,13 @@ jobs:
           # --soft-fail will ensure the workflow continues even if issues are found,
           # allowing you to review them without blocking deployment.
           checkov --directory terraform-project --soft-fail --output cli > checkov_results.txt
-      - name: Commit Scan Results
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "docs: Update TFLint and Checkov scan results"
-          file_pattern: "tflint_results.txt checkov_results.txt"
       - name: Install TFLint
         run: |
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
       - name: Run Terraform Automation Script
         run: python terraform_automate.py
+      - name: Commit Scan Results
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs: Update TFLint and Checkov scan results"
+          file_pattern: "tflint_results.txt checkov_results.txt"
