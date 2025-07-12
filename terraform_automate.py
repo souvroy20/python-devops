@@ -19,12 +19,10 @@ def run_terraform_command(name, command):
 
 if __name__ == "__main__":
     steps = [
-        ("Terraform Format Check",
-         f"terraform -chdir={directory} fmt -recursive"),  # ✅ format
-        ("TFLint", f"tflint {directory}"),  # ✅ lint
+        ("Terraform Format", f"terraform -chdir={directory} fmt -recursive"),
+        ("TFLint", f"tflint --chdir={directory}"),
         ("Init", f"terraform -chdir={directory} init -upgrade"),
         ("Validate", f"terraform -chdir={directory} validate"),
-        ("Refresh", f"terraform -chdir={directory} refresh"),
         ("Plan", f"terraform -chdir={directory} plan -out=tfplan"),
         ("Apply", f"terraform -chdir={directory} apply -auto-approve tfplan"),
     ]
