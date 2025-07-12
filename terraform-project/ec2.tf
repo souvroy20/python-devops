@@ -63,7 +63,7 @@ resource "aws_instance" "testinstance" {
   iam_instance_profile = data.aws_iam_instance_profile.existing.name
   key_name             = aws_key_pair.deployer.key_name
   ebs_optimized        = true
-  security_groups      = [aws_security_group.allow_user_to_connect.name]
+  vpc_security_group_ids = [aws_security_group.allow_user_to_connect.id]
   user_data            = <<-EOF
     #!/bin/bash
     exec > /var/log/user-data.log 2>&1
