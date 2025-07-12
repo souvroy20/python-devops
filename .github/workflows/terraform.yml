@@ -1,4 +1,4 @@
-name: "Terraform CI/CD"
+name: "Terraform Python Automation"
 
 on:
   push:
@@ -13,7 +13,7 @@ on:
 
 jobs:
   terraform:
-    name: "Terraform Code Scan,dry run and Execution"
+    name: "Terraform Lint,Autom-format,Scan,dry run and Execution"
     runs-on: ubuntu-latest
     permissions:
       contents: write # Grant permission to write to the repository
