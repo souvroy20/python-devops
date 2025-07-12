@@ -9,11 +9,23 @@ def run_terraform_command(name, command):
     result = subprocess.run(command, shell=True,
                             capture_output=True, text=True)
 
+    # TFLint has a non-zero exit code when it finds issues.
+    # We want to treat this as a "soft fail": log the issues but don't stop the pipeline.
+    if result.returncode != 0 and name == "TFLint":
+        lint_output = result.stdout + result.stderr
+        print(f"⚠️ {name} found issues (pipeline will continue):\n{lint_output}")
+        with open("tflint_results.txt", "w") as f:
+            f.write(lint_output)
+        return True  # Allow pipeline to continue
+
     if result.returncode != 0:
         print(f"❌ {name} failed!\n{result.stderr}")
         return False
     else:
         print(f"✅ {name} succeeded.\n{result.stdout}")
+        if name == "TFLint":
+            with open("tflint_results.txt", "w") as f:
+                f.write(result.stdout)
         return True
 
 
