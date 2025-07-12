@@ -10,9 +10,7 @@ resource "aws_key_pair" "deployer" {
   # public_key = file("C:\\IMPORTANT\\AWS_Keys\\terraform_python.pub")
 }
 
-resource "aws_default_vpc" "default" {
-
-}
+resource "aws_default_vpc" "default" {}
 
 resource "aws_security_group" "allow_user_to_connect" {
   name        = "allow TLS"
@@ -60,22 +58,22 @@ data "aws_iam_instance_profile" "existing" {
 }
 
 resource "aws_instance" "testinstance" {
-  ami             = var.ami_id
-  instance_type   = var.instance_type
-  iam_instance_profile   = data.aws_iam_instance_profile.existing.name
-  key_name        = aws_key_pair.deployer.key_name
-  ebs_optimized   = true
-  security_groups = [aws_security_group.allow_user_to_connect.name]
-  user_data = <<-EOF
-              #!/bin/bash
-              exec > /var/log/user-data.log 2>&1
-              set -x
-              apt update -y
-              apt install -y apache2
-              systemctl start apache2
-              systemctl enable apache2
-              echo "<html><body><h1>EC2 Instance is working!</h1></body></html>" > /var/www/html/index.html
-              EOF
+  ami                  = var.ami_id
+  instance_type        = var.instance_type
+  iam_instance_profile = data.aws_iam_instance_profile.existing.name
+  key_name             = aws_key_pair.deployer.key_name
+  ebs_optimized        = true
+  security_groups      = [aws_security_group.allow_user_to_connect.name]
+  user_data            = <<-EOF
+    #!/bin/bash
+    exec > /var/log/user-data.log 2>&1
+    set -x
+    apt update -y
+    apt install -y apache2
+    systemctl start apache2
+    systemctl enable apache2
+    echo "<html><body><h1>EC2 Instance is working!</h1></body></html>" > /var/www/html/index.html
+  EOF
   tags = {
     Name = "Automate Python Terraform"
   }
