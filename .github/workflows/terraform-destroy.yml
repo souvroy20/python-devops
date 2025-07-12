@@ -1,0 +1,46 @@
+name: "Manual Terraform Destroy"
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_destroy:
+        description: 'Type "destroy" to confirm you want to permanently destroy all resources.'
+        required: true
+        default: "do-not-destroy"
+
+jobs:
+  terraform-destroy:
+    name: "Terraform Destroy"
+    runs-on: ubuntu-latest
+
+    # This condition prevents the job from running unless the user explicitly types "destroy"
+    if: github.event.inputs.confirm_destroy == 'destroy'
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13" # Use a specific version for destroy
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 # Change to your desired AWS region
+
+      - name: Run Terraform Destroy Script
+        run: python terraform_destroy.py
+
+      - name: Destruction Canceled
+        if: ${{ failure() && github.event.inputs.confirm_destroy != 'destroy' }}
+        run: echo "Destroy was not confirmed. No action taken."

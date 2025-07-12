@@ -48,10 +48,16 @@ resource "aws_security_group" "allow_user_to_connect" {
   }
 }
 
+data "aws_iam_instance_profile" "existing" {
+  name = "Github-Action-Terraform-Automation"
+}
+
 resource "aws_instance" "testinstance" {
   ami             = var.ami_id
   instance_type   = var.instance_type
+  iam_instance_profile   = data.aws_iam_instance_profile.existing.name
   key_name        = aws_key_pair.deployer.key_name
+  ebs_optimized   = true
   security_groups = [aws_security_group.allow_user_to_connect.name]
   user_data = <<-EOF
               #!/bin/bash

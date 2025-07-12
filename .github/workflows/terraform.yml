@@ -11,10 +11,14 @@ on:
 
 jobs:
   terraform:
-    name: "Terraform Apply"
+    name: "Terraform Scan & Execution"
     runs-on: ubuntu-latest
     permissions:
       contents: read
+
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.13"]
 
     steps:
       - name: Checkout repository
@@ -26,7 +30,10 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: ${{ matrix.python-version }}
+      - name: Print Python Version
+        run: |
+          python --version
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -34,6 +41,18 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1 # Change to your desired AWS region
-
+      - name: Install and Run Checkov
+        run: |
+          pip install checkov
+          # Scan the terraform-project directory.
+          # --soft-fail will ensure the workflow continues even if issues are found,
+          # allowing you to review them without blocking deployment.
+          checkov --directory terraform-project --soft-fail --output cli > checkov_results.txt
+      - name: Commit Checkov Results
+        if: matrix.python-version == '3.13' # Only run on one of the matrix jobs to avoid race conditions
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs: Update Checkov scan results"
+          file_pattern: checkov_results.txt
       - name: Run Terraform Automation Script
         run: python terraform_automate.py
