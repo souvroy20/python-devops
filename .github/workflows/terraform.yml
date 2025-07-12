@@ -14,7 +14,7 @@ jobs:
     name: "Terraform Scan & Execution"
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write # Grant permission to write to the repository
 
     strategy:
       matrix:
