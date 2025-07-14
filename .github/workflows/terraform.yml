@@ -8,8 +8,8 @@ on:
       - "terraform-project/**" # Only run when terraform files change
       - "terraform_automate.py"
   workflow_dispatch: # Allows manual triggering
-  schedule:
-    - cron: "0 3 * * *"
+  # schedule:
+  #   - cron: "0 3 * * *"
 
 jobs:
   terraform:
